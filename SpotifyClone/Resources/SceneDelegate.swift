@@ -6,8 +6,16 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
-        window?.rootViewController = TabBarViewController()
         window?.makeKeyAndVisible()
+        window?.rootViewController = {
+            if AuthService.shared.isAuthenticated {
+                return TabBarViewController()
+            }
+            let nav = UINavigationController(rootViewController: WelcomeViewController())
+            nav.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
+            nav.navigationBar.prefersLargeTitles = true
+            return nav
+        }()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}
