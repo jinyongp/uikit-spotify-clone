@@ -6,6 +6,8 @@ final class TabBarViewController: UITabBarController {
 
         initializeUI()
         setupTabBar()
+
+        AuthService.shared.startRefreshAccessToken()
     }
 
     private func initializeUI() {

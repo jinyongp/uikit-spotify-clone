@@ -1,9 +1,5 @@
 import Foundation
 
-enum AuthError: Error {
-    case invalidUrl
-}
-
 final class AuthService: Debugger {
     static let shared = AuthService()
     private init() {}
@@ -106,7 +102,17 @@ final class AuthService: Debugger {
         _cache(response: response)
     }
 
-    func refresh(token: String) async throws {
+    func startRefreshAccessToken() {
+        guard let refreshToken else { return }
+        DispatchQueue.main.asyncAfter(deadline: .now() + 60 * 30) { [weak self] in
+            Task {
+                try? await self?.refresh(token: refreshToken)
+                self?.startRefreshAccessToken()
+            }
+        }
+    }
+
+    private func refresh(token: String) async throws {
         let url = URL(string: API_URL.token, queries: [
             ("grant_type", "refresh_token"),
             ("refresh_token", token),
@@ -123,10 +129,16 @@ final class AuthService: Debugger {
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try JSONDecoder().decode(AuthResponse.self, from: data)
+        printInfo(
+            "AccessToken is refreshed:",
+            "\tAccessToken: \(response.accessToken)",
+            "\tRefreshToken: \(response.refreshToken ?? "None")",
+            separator: "\n"
+        )
         _cache(response: response)
     }
 
-    func _cache(response: AuthResponse) {
+    private func _cache(response: AuthResponse) {
         UserDefaults.standard.setValue(response.accessToken, forKey: StorageKey.accessToken)
         if let refreshToken = response.refreshToken {
             UserDefaults.standard.setValue(refreshToken, forKey: StorageKey.refreshToken)

@@ -33,18 +33,25 @@ class AuthViewController: UIViewController, Debugger {
     override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if keyPath == #keyPath(WKWebView.url) {
             guard let url = webView.url,
-                  let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false),
-                  let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value
+                  let urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
             else { return }
-            webView.isHidden = true
-            Task {
+
+            if let error = urlComponents.queryItems?.first(where: { $0.name == "error" })?.value {
                 navigationController?.popViewController(animated: true)
-                do {
-                    try await AuthService.shared.initializeTokens(code: code)
-                    onAuthenticated?(true)
-                } catch {
-                    printError(error.localizedDescription)
-                    onAuthenticated?(false)
+                return printError(error)
+            }
+
+            if let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value {
+                webView.removeFromSuperview()
+                navigationController?.popViewController(animated: true)
+                Task {
+                    do {
+                        try await AuthService.shared.initializeTokens(code: code)
+                        onAuthenticated?(true)
+                    } catch {
+                        printError(error.localizedDescription)
+                        onAuthenticated?(false)
+                    }
                 }
             }
         }
