@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		332811512A96175B005EEAB7 /* AuthResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811502A96175B005EEAB7 /* AuthResponse.swift */; };
+		332811542A963CD7005EEAB7 /* Debugger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811532A963CD7005EEAB7 /* Debugger.swift */; };
 		337630C12A8CB55A003F30B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C02A8CB55A003F30B2 /* AppDelegate.swift */; };
 		337630C32A8CB55A003F30B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C22A8CB55A003F30B2 /* SceneDelegate.swift */; };
 		337630C52A8CB55A003F30B2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C42A8CB55A003F30B2 /* TabBarViewController.swift */; };
@@ -17,9 +19,13 @@
 		337630E52A8CC4FE003F30B2 /* LibraryViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630E42A8CC4FE003F30B2 /* LibraryViewController.swift */; };
 		337630E72A8CC96B003F30B2 /* AuthService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630E62A8CC96B003F30B2 /* AuthService.swift */; };
 		337630E92A8CCA0D003F30B2 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630E82A8CCA0D003F30B2 /* WelcomeViewController.swift */; };
+		337630EB2A8CD0EF003F30B2 /* AuthViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630EA2A8CD0EF003F30B2 /* AuthViewController.swift */; };
+		337630F32A8CDE90003F30B2 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630F22A8CDE90003F30B2 /* Extensions.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		332811502A96175B005EEAB7 /* AuthResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthResponse.swift; sourceTree = "<group>"; };
+		332811532A963CD7005EEAB7 /* Debugger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debugger.swift; sourceTree = "<group>"; };
 		337630BD2A8CB55A003F30B2 /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		337630C02A8CB55A003F30B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		337630C22A8CB55A003F30B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -32,6 +38,8 @@
 		337630E42A8CC4FE003F30B2 /* LibraryViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LibraryViewController.swift; sourceTree = "<group>"; };
 		337630E62A8CC96B003F30B2 /* AuthService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthService.swift; sourceTree = "<group>"; };
 		337630E82A8CCA0D003F30B2 /* WelcomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WelcomeViewController.swift; sourceTree = "<group>"; };
+		337630EA2A8CD0EF003F30B2 /* AuthViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthViewController.swift; sourceTree = "<group>"; };
+		337630F22A8CDE90003F30B2 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -45,6 +53,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		332811522A963CCA005EEAB7 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				332811532A963CD7005EEAB7 /* Debugger.swift */,
+			);
+			path = Utilities;
+			sourceTree = "<group>";
+		};
 		337630B42A8CB55A003F30B2 = {
 			isa = PBXGroup;
 			children = (
@@ -70,6 +86,7 @@
 				337630D62A8CB72B003F30B2 /* Models */,
 				337630D52A8CB726003F30B2 /* Views */,
 				337630D42A8CB71C003F30B2 /* Controllers */,
+				332811522A963CCA005EEAB7 /* Utilities */,
 				337630CE2A8CB55B003F30B2 /* Info.plist */,
 			);
 			path = SpotifyClone;
@@ -79,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				337630E82A8CCA0D003F30B2 /* WelcomeViewController.swift */,
+				337630EA2A8CD0EF003F30B2 /* AuthViewController.swift */,
 				337630C42A8CB55A003F30B2 /* TabBarViewController.swift */,
 				337630E02A8CC4CF003F30B2 /* HomeViewController.swift */,
 				337630E22A8CC4E8003F30B2 /* SearchViewController.swift */,
@@ -98,6 +116,7 @@
 		337630D62A8CB72B003F30B2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				332811502A96175B005EEAB7 /* AuthResponse.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -123,6 +142,7 @@
 				337630C92A8CB55B003F30B2 /* Assets.xcassets */,
 				337630C02A8CB55A003F30B2 /* AppDelegate.swift */,
 				337630C22A8CB55A003F30B2 /* SceneDelegate.swift */,
+				337630F22A8CDE90003F30B2 /* Extensions.swift */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -198,12 +218,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				337630C52A8CB55A003F30B2 /* TabBarViewController.swift in Sources */,
+				332811542A963CD7005EEAB7 /* Debugger.swift in Sources */,
 				337630E92A8CCA0D003F30B2 /* WelcomeViewController.swift in Sources */,
 				337630E32A8CC4E8003F30B2 /* SearchViewController.swift in Sources */,
 				337630C12A8CB55A003F30B2 /* AppDelegate.swift in Sources */,
 				337630E12A8CC4CF003F30B2 /* HomeViewController.swift in Sources */,
+				337630F32A8CDE90003F30B2 /* Extensions.swift in Sources */,
 				337630E52A8CC4FE003F30B2 /* LibraryViewController.swift in Sources */,
 				337630C32A8CB55A003F30B2 /* SceneDelegate.swift in Sources */,
+				332811512A96175B005EEAB7 /* AuthResponse.swift in Sources */,
+				337630EB2A8CD0EF003F30B2 /* AuthViewController.swift in Sources */,
 				337630E72A8CC96B003F30B2 /* AuthService.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

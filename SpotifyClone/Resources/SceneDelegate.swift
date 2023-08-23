@@ -7,15 +7,22 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowScene)
         window?.makeKeyAndVisible()
-        window?.rootViewController = {
-            if AuthService.shared.isAuthenticated {
-                return TabBarViewController()
+
+        Task {
+            #if DEBUG
+            let defaults = UserDefaults.standard
+            let dictionary = defaults.dictionaryRepresentation()
+            dictionary.keys.forEach { defaults.removeObject(forKey: $0) }
+            #endif
+            if await AuthService.shared.isAuthenticated() {
+                window?.rootViewController = TabBarViewController()
+            } else {
+                let nav = UINavigationController(rootViewController: WelcomeViewController())
+                nav.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
+                nav.navigationBar.prefersLargeTitles = true
+                window?.rootViewController = nav
             }
-            let nav = UINavigationController(rootViewController: WelcomeViewController())
-            nav.viewControllers.first?.navigationItem.largeTitleDisplayMode = .always
-            nav.navigationBar.prefersLargeTitles = true
-            return nav
-        }()
+        }
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {}
