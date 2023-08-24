@@ -13,6 +13,8 @@
 		332811602A96EA85005EEAB7 /* APIService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328115F2A96EA85005EEAB7 /* APIService.swift */; };
 		332811662A971F98005EEAB7 /* UserProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811652A971F98005EEAB7 /* UserProfileViewController.swift */; };
 		332811682A9720A8005EEAB7 /* UserProfile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811672A9720A8005EEAB7 /* UserProfile.swift */; };
+		3328116A2A9745E3005EEAB7 /* SettingViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811692A9745E3005EEAB7 /* SettingViewController.swift */; };
+		3328116E2A974ADE005EEAB7 /* Setting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328116D2A974ADE005EEAB7 /* Setting.swift */; };
 		337630C12A8CB55A003F30B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C02A8CB55A003F30B2 /* AppDelegate.swift */; };
 		337630C32A8CB55A003F30B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C22A8CB55A003F30B2 /* SceneDelegate.swift */; };
 		337630C52A8CB55A003F30B2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C42A8CB55A003F30B2 /* TabBarViewController.swift */; };
@@ -34,6 +36,8 @@
 		3328115F2A96EA85005EEAB7 /* APIService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIService.swift; sourceTree = "<group>"; };
 		332811652A971F98005EEAB7 /* UserProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileViewController.swift; sourceTree = "<group>"; };
 		332811672A9720A8005EEAB7 /* UserProfile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfile.swift; sourceTree = "<group>"; };
+		332811692A9745E3005EEAB7 /* SettingViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingViewController.swift; sourceTree = "<group>"; };
+		3328116D2A974ADE005EEAB7 /* Setting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Setting.swift; sourceTree = "<group>"; };
 		337630BD2A8CB55A003F30B2 /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		337630C02A8CB55A003F30B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		337630C22A8CB55A003F30B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -83,6 +87,7 @@
 			children = (
 				337630E02A8CC4CF003F30B2 /* HomeViewController.swift */,
 				332811652A971F98005EEAB7 /* UserProfileViewController.swift */,
+				332811692A9745E3005EEAB7 /* SettingViewController.swift */,
 			);
 			path = Home;
 			sourceTree = "<group>";
@@ -111,6 +116,23 @@
 				337630EA2A8CD0EF003F30B2 /* AuthViewController.swift */,
 			);
 			path = Core;
+			sourceTree = "<group>";
+		};
+		3328116B2A974AC8005EEAB7 /* Internal */ = {
+			isa = PBXGroup;
+			children = (
+				3328116D2A974ADE005EEAB7 /* Setting.swift */,
+			);
+			path = Internal;
+			sourceTree = "<group>";
+		};
+		3328116C2A974ACE005EEAB7 /* Spotify */ = {
+			isa = PBXGroup;
+			children = (
+				332811502A96175B005EEAB7 /* AuthResponse.swift */,
+				332811672A9720A8005EEAB7 /* UserProfile.swift */,
+			);
+			path = Spotify;
 			sourceTree = "<group>";
 		};
 		337630B42A8CB55A003F30B2 = {
@@ -165,8 +187,8 @@
 		337630D62A8CB72B003F30B2 /* Models */ = {
 			isa = PBXGroup;
 			children = (
-				332811502A96175B005EEAB7 /* AuthResponse.swift */,
-				332811672A9720A8005EEAB7 /* UserProfile.swift */,
+				3328116B2A974AC8005EEAB7 /* Internal */,
+				3328116C2A974ACE005EEAB7 /* Spotify */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -266,8 +288,10 @@
 				337630E92A8CCA0D003F30B2 /* WelcomeViewController.swift in Sources */,
 				337630E32A8CC4E8003F30B2 /* SearchViewController.swift in Sources */,
 				337630C12A8CB55A003F30B2 /* AppDelegate.swift in Sources */,
+				3328116A2A9745E3005EEAB7 /* SettingViewController.swift in Sources */,
 				337630E12A8CC4CF003F30B2 /* HomeViewController.swift in Sources */,
 				337630F32A8CDE90003F30B2 /* Extensions.swift in Sources */,
+				3328116E2A974ADE005EEAB7 /* Setting.swift in Sources */,
 				3328115C2A96E523005EEAB7 /* ConsoleLogger.swift in Sources */,
 				332811602A96EA85005EEAB7 /* APIService.swift in Sources */,
 				337630E52A8CC4FE003F30B2 /* LibraryViewController.swift in Sources */,

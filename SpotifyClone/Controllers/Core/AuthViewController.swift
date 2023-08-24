@@ -3,8 +3,6 @@ import WebKit
 
 class AuthViewController: UIViewController {
     var onAuthenticated: ((Bool) -> Void)?
-    
-    private let logger = ConsoleLogger()
 
     private lazy var webView = {
         let prefs = WKWebpagePreferences()

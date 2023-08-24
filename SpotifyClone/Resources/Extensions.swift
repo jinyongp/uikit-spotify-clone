@@ -1,4 +1,4 @@
-import Foundation
+import UIKit
 
 extension String {
     static func random(length: Int, numeric: Bool = false) -> String {
@@ -30,4 +30,8 @@ extension URL {
         self.init(string: string)
         append(queries: queries)
     }
+}
+
+extension UIViewController {
+    var logger: Logger { ConsoleLogger.shared }
 }

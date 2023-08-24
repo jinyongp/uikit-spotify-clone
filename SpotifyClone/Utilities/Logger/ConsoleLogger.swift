@@ -1,6 +1,9 @@
 import Foundation
 
 struct ConsoleLogger: Logger {
+    static let shared = ConsoleLogger()
+    private init() {}
+    
     func info(_ string: String) {
         print("[\(_typename).Info] \(string)")
     }

@@ -5,31 +5,58 @@ enum HttpMethod: String {
     case post = "POST"
 }
 
+enum APIError: Error {
+    case invalidUrl
+    case unauthorized
+}
+
 final class APIService {
     static let shared = APIService()
     private init() {}
 
-    let logger = ConsoleLogger()
-    
-    var userProfile: UserProfile? {
-        get async throws {
-            guard let request = try await createRequest(url: URL(string: API_URL.baseUrl + "/me")) else { return nil }
-            let (data, _) = try await URLSession.shared.data(for: request)
-            let result = try JSONDecoder().decode(UserProfile.self, from: data)
-            return result
-        }
-        
-    }
-    
-    private struct API_URL {
+    private let logger = ConsoleLogger.shared
+    private let decoder = JSONDecoder()
+
+    private enum API_URL {
         static let baseUrl = "https://api.spotify.com/v1"
     }
 
-    
-    
-    private func createRequest(url: URL?, method: HttpMethod = .get) async throws -> URLRequest? {
-        guard let url else { return nil }
-        guard let token = await AuthService.shared.authToken else { return nil }
+    func fetch<T: Codable>(
+        url: String, method: HttpMethod = .get,
+        model: T.Type,
+        withResult: @escaping (T) -> Void,
+        withError: ((Error) -> Void)? = nil
+    ) {
+        _ = fetch(url: url, model: model, lazy: false, withResult: withResult, withError: withError)
+    }
+
+    func fetch<T: Codable>(
+        url: String, method: HttpMethod = .get,
+        model: T.Type,
+        lazy: Bool = false,
+        withResult: @escaping (T) -> Void,
+        withError: ((Error) -> Void)? = nil
+    ) -> () -> Void {
+        func load() {
+            Task {
+                do {
+                    let request = try await createRequest(url: URL(string: API_URL.baseUrl + url))
+                    let (data, _) = try await URLSession.shared.data(for: request)
+                    let model = try decoder.decode(T.self, from: data)
+                    withResult(model)
+                } catch {
+                    withError?(error)
+                }
+            }
+        }
+
+        if !lazy { load() }
+        return load
+    }
+
+    private func createRequest(url: URL?, method: HttpMethod = .get) async throws -> URLRequest {
+        guard let url else { throw APIError.invalidUrl }
+        guard let token = await AuthService.shared.authToken else { throw APIError.unauthorized }
         var request = URLRequest(url: url)
         request.httpMethod = method.rawValue
         request.setValue("Bearer \(token)", forHTTPHeaderField: "Authorization")

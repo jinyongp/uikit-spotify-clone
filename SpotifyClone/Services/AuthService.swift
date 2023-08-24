@@ -5,7 +5,7 @@ final class AuthService {
     private init() {}
 
     private let storage = UserDefaults.standard
-    private let logger = ConsoleLogger()
+    private let logger = ConsoleLogger.shared
 
     private struct API_URL {
         static let endpoint = "https://accounts.spotify.com"

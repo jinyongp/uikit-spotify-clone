@@ -15,7 +15,7 @@ final class HomeViewController: UITabBarController {
     }
 
     @objc private func settingButtonTapped() {
-        let vc = UserProfileViewController()
+        let vc = SettingViewController()
         navigationController?.pushViewController(vc, animated: true)
     }
 }
