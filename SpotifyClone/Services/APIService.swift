@@ -30,17 +30,22 @@ final class APIService {
         _ = fetch(url: url, model: model, lazy: false, success: success, failure: failure)
     }
 
+    @discardableResult
     func fetch<T: Codable>(
         url: String, method: HttpMethod = .get,
         model: T.Type,
         lazy: Bool = false,
+        query: [(name: String, value: String)] = [],
         success: @escaping (T) -> Void,
         failure: ((Error) -> Void)? = nil
     ) -> () -> Void {
         func load() {
             Task {
                 do {
-                    let request = try await createRequest(url: URL(string: API_URL.baseUrl + url))
+                    guard var url = URL(string: API_URL.baseUrl + url) else { return failure?(APIError.invalidUrl) }
+                    url.append(queries: query)
+                    logger.info("URL: \(url.absoluteString)")
+                    let request = try await createRequest(url: url)
                     let (data, _) = try await URLSession.shared.data(for: request)
                     let model = try decoder.decode(T.self, from: data)
                     success(model)

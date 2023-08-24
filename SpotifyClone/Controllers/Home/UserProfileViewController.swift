@@ -7,7 +7,7 @@ class UserProfileViewController: UIViewController {
         super.viewDidLoad()
         initializeUI()
 
-        APIService.shared.fetch(url: "/me", model: UserProfile.self) { profile in
+        APIService.shared.fetch(url: "/me", model: User.self) { profile in
             self.logger.info("\(profile)")
             self.profiles.append("ID: \(profile.id)")
             self.profiles.append("Name: \(profile.name)")
