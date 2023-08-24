@@ -9,11 +9,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         window?.makeKeyAndVisible()
 
         Task {
-            #if DEBUG
-            let defaults = UserDefaults.standard
-            let dictionary = defaults.dictionaryRepresentation()
-            dictionary.keys.forEach { defaults.removeObject(forKey: $0) }
-            #endif
+//            let defaults = UserDefaults.standard
+//            let dictionary = defaults.dictionaryRepresentation()
+//            dictionary.keys.forEach { defaults.removeObject(forKey: $0) }
             if await AuthService.shared.isAuthenticated() {
                 window?.rootViewController = TabBarViewController()
             } else {

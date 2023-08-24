@@ -7,19 +7,19 @@ final class AuthService {
     private let storage = UserDefaults.standard
     private let logger = ConsoleLogger()
 
-    private enum API_URL {
+    private struct API_URL {
         static let endpoint = "https://accounts.spotify.com"
         static let authorize = "\(endpoint)/authorize"
         static let token = "\(endpoint)/api/token"
         static let redirect = "https://jinyongp.dev"
     }
 
-    private enum Client {
+    private struct Client {
         static let id = "948cbfe873ce4e15abd7f0115f05a338"
         static let secret = "e2f331d6160741d3ac03dc8bd2ba09a1"
     }
 
-    private enum StorageKey {
+    private struct StorageKey {
         static let accessToken = "access_token"
         static let refreshToken = "refresh_token"
         static let expirationDate = "expiration_date"
@@ -49,6 +49,14 @@ final class AuthService {
         return url
     }()
 
+    var authToken: String? {
+        get async {
+            if isExpired { try? await _refresh() }
+            guard let accessToken else { return nil }
+            return accessToken
+        }
+    }
+
     private var accessToken: String? { storage.string(forKey: StorageKey.accessToken) }
     private var refreshToken: String? { storage.string(forKey: StorageKey.refreshToken) }
     private var expirationDate: Date? { storage.object(forKey: StorageKey.expirationDate) as? Date }
@@ -70,7 +78,7 @@ final class AuthService {
         guard let refreshToken else { return false }
         logger.info("Trying to refresh token...")
 
-        guard let _ = try? await refresh(token: refreshToken) else { return false }
+        guard let _ = try? await _refresh(token: refreshToken) else { return false }
         logger.info("AccessToken is refreshed successfully!")
 
         return true
@@ -92,8 +100,8 @@ final class AuthService {
             return request
         }()
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let response = try JSONDecoder().decode(AuthResponse.self, from: data)
+        async let (data, _) = URLSession.shared.data(for: request)
+        let response = try await JSONDecoder().decode(AuthResponse.self, from: data)
         logger.info([
             "Tokens are Initialized:",
             "\tAccessToken: \(response.accessToken)",
@@ -103,16 +111,18 @@ final class AuthService {
     }
 
     func startRefreshAccessToken() {
-        guard let refreshToken else { return }
+        guard refreshToken != nil else { return }
         DispatchQueue.main.asyncAfter(deadline: .now() + 60 * 30) { [weak self] in
             Task {
-                try? await self?.refresh(token: refreshToken)
+                try? await self?._refresh()
                 self?.startRefreshAccessToken()
             }
         }
     }
 
-    private func refresh(token: String) async throws {
+    private func _refresh(token: String? = nil) async throws {
+        guard let token = token ?? refreshToken else { return }
+
         let url = URL(string: API_URL.token, queries: [
             ("grant_type", "refresh_token"),
             ("refresh_token", token),
@@ -127,10 +137,10 @@ final class AuthService {
             return request
         }()
 
-        let (data, _) = try await URLSession.shared.data(for: request)
-        let response = try JSONDecoder().decode(AuthResponse.self, from: data)
+        async let (data, _) = URLSession.shared.data(for: request)
+        let response = try await JSONDecoder().decode(AuthResponse.self, from: data)
         logger.info([
-            "Tokens are Initialized:",
+            "AccessToken is refreshed:",
             "\tAccessToken: \(response.accessToken)",
             "\tRefreshToken: \(response.refreshToken ?? "None")",
         ].joined(separator: "\n"))

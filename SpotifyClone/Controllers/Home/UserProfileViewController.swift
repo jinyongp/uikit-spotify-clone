@@ -1,6 +1,6 @@
 import UIKit
 
-final class HomeViewController: UITabBarController {
+class UserProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -9,5 +9,10 @@ final class HomeViewController: UITabBarController {
 
     private func initializeUI() {
         view.backgroundColor = .systemBackground
+        title = "Profile"
+
+        Task {
+            try await print(APIService.shared.userProfile)
+        }
     }
 }
