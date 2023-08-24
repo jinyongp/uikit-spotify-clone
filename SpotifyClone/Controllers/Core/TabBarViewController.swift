@@ -27,6 +27,7 @@ final class TabBarViewController: UITabBarController {
             let nav = UINavigationController(rootViewController: root)
             nav.tabBarItem = UITabBarItem(title: title, image: .init(systemName: icon), tag: 1)
             nav.navigationBar.prefersLargeTitles = true
+            nav.navigationBar.tintColor = .label
             return nav
         }, animated: false)
     }

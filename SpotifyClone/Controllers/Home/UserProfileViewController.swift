@@ -1,4 +1,3 @@
-import SDWebImage
 import UIKit
 
 class UserProfileViewController: UIViewController {
