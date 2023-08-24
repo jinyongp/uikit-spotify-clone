@@ -24,18 +24,18 @@ final class APIService {
     func fetch<T: Codable>(
         url: String, method: HttpMethod = .get,
         model: T.Type,
-        withResult: @escaping (T) -> Void,
-        withError: ((Error) -> Void)? = nil
+        success: @escaping (T) -> Void,
+        failure: ((Error) -> Void)? = nil
     ) {
-        _ = fetch(url: url, model: model, lazy: false, withResult: withResult, withError: withError)
+        _ = fetch(url: url, model: model, lazy: false, success: success, failure: failure)
     }
 
     func fetch<T: Codable>(
         url: String, method: HttpMethod = .get,
         model: T.Type,
         lazy: Bool = false,
-        withResult: @escaping (T) -> Void,
-        withError: ((Error) -> Void)? = nil
+        success: @escaping (T) -> Void,
+        failure: ((Error) -> Void)? = nil
     ) -> () -> Void {
         func load() {
             Task {
@@ -43,9 +43,9 @@ final class APIService {
                     let request = try await createRequest(url: URL(string: API_URL.baseUrl + url))
                     let (data, _) = try await URLSession.shared.data(for: request)
                     let model = try decoder.decode(T.self, from: data)
-                    withResult(model)
+                    success(model)
                 } catch {
-                    withError?(error)
+                    failure?(error)
                 }
             }
         }

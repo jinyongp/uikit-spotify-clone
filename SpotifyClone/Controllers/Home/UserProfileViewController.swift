@@ -1,15 +1,20 @@
+import SDWebImage
 import UIKit
 
 class UserProfileViewController: UIViewController {
-    private var loading = false
+    private var profiles: [String] = []
 
     override func viewDidLoad() {
         super.viewDidLoad()
         initializeUI()
 
-        APIService.shared.fetch(url: "/me", model: UserProfile.self) { result in
-            self.logger.info("\(result)")
-        } withError: { error in
+        APIService.shared.fetch(url: "/me", model: UserProfile.self) { profile in
+            self.logger.info("\(profile)")
+            self.profiles.append("ID: \(profile.id)")
+            self.profiles.append("Name: \(profile.name)")
+            self.profiles.append("Email: \(profile.email)")
+            DispatchQueue.main.async { self.updateProfileUI() }
+        } failure: { error in
             self.logger.error("\(error)")
             DispatchQueue.main.async { self.updateFailedUI() }
         }
@@ -49,16 +54,15 @@ class UserProfileViewController: UIViewController {
 }
 
 extension UserProfileViewController: UITableViewDataSource {
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        0
-    }
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int { profiles.count }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let profile = profiles[indexPath.row]
         cell.selectionStyle = .none
         cell.contentConfiguration = {
             var content = cell.defaultContentConfiguration()
-            content.text = "Foo"
+            content.text = profile
             return content
         }()
         return cell
