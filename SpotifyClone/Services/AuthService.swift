@@ -1,10 +1,11 @@
 import Foundation
 
-final class AuthService: Debugger {
+final class AuthService {
     static let shared = AuthService()
     private init() {}
 
     private let storage = UserDefaults.standard
+    private let logger = ConsoleLogger()
 
     private enum API_URL {
         static let endpoint = "https://accounts.spotify.com"
@@ -64,13 +65,13 @@ final class AuthService: Debugger {
 
     func isAuthenticated() async -> Bool {
         guard isExpired else { return true }
-        printInfo("AccessToken is \(expirationDate != nil ? "expired at \(expirationDate!)." : "not initialized.") ")
+        logger.info("AccessToken is \(expirationDate != nil ? "expired at \(expirationDate!)." : "not initialized.") ")
 
         guard let refreshToken else { return false }
-        printInfo("Trying to refresh token...")
+        logger.info("Trying to refresh token...")
 
         guard let _ = try? await refresh(token: refreshToken) else { return false }
-        printInfo("AccessToken is refreshed successfully!")
+        logger.info("AccessToken is refreshed successfully!")
 
         return true
     }
@@ -93,12 +94,11 @@ final class AuthService: Debugger {
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try JSONDecoder().decode(AuthResponse.self, from: data)
-        printInfo(
+        logger.info([
             "Tokens are Initialized:",
             "\tAccessToken: \(response.accessToken)",
             "\tRefreshToken: \(response.refreshToken ?? "None")",
-            separator: "\n"
-        )
+        ].joined(separator: "\n"))
         _cache(response: response)
     }
 
@@ -129,12 +129,11 @@ final class AuthService: Debugger {
 
         let (data, _) = try await URLSession.shared.data(for: request)
         let response = try JSONDecoder().decode(AuthResponse.self, from: data)
-        printInfo(
-            "AccessToken is refreshed:",
+        logger.info([
+            "Tokens are Initialized:",
             "\tAccessToken: \(response.accessToken)",
             "\tRefreshToken: \(response.refreshToken ?? "None")",
-            separator: "\n"
-        )
+        ].joined(separator: "\n"))
         _cache(response: response)
     }
 

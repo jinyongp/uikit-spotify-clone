@@ -1,8 +1,10 @@
 import UIKit
 import WebKit
 
-class AuthViewController: UIViewController, Debugger {
+class AuthViewController: UIViewController {
     var onAuthenticated: ((Bool) -> Void)?
+    
+    private let logger = ConsoleLogger()
 
     private lazy var webView = {
         let prefs = WKWebpagePreferences()
@@ -38,7 +40,7 @@ class AuthViewController: UIViewController, Debugger {
 
             if let error = urlComponents.queryItems?.first(where: { $0.name == "error" })?.value {
                 navigationController?.popViewController(animated: true)
-                return printError(error)
+                return logger.error(error)
             }
 
             if let code = urlComponents.queryItems?.first(where: { $0.name == "code" })?.value {
@@ -49,7 +51,7 @@ class AuthViewController: UIViewController, Debugger {
                         try await AuthService.shared.initializeTokens(code: code)
                         onAuthenticated?(true)
                     } catch {
-                        printError(error.localizedDescription)
+                        logger.error(error.localizedDescription)
                         onAuthenticated?(false)
                     }
                 }
