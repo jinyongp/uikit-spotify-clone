@@ -42,7 +42,9 @@ final class WelcomeViewController: UIViewController {
         vc.onAuthenticated = { [weak self] success in
             if success {
                 let tabBarController = TabBarViewController()
-                self?.navigationController?.setViewControllers([tabBarController], animated: true)
+                tabBarController.modalTransitionStyle = .crossDissolve
+                tabBarController.modalPresentationStyle = .fullScreen
+                self?.present(tabBarController, animated: true)
             } else {
                 let alert = UIAlertController(title: "ERROR", message: "Sign In Failed.\nPlease contact your administrator.", preferredStyle: .alert)
                 alert.addAction(.init(title: "Back", style: .cancel))
