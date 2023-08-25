@@ -10,8 +10,21 @@ final class TabBarViewController: UITabBarController {
         AuthService.shared.startRefreshAccessToken()
     }
 
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+
+        let frame = tabBar.frame
+        let paddingTop: CGFloat = 5.0
+        tabBar.frame = .init(
+            x: frame.origin.x,
+            y: frame.origin.y - paddingTop,
+            width: frame.width,
+            height: frame.height + paddingTop
+        )
+    }
+
     private func initializeUI() {
-        view.backgroundColor = .systemBackground
+        tabBar.backgroundColor = .systemBackground.withAlphaComponent(0.5)
     }
 
     private func setupTabBar() {
@@ -23,12 +36,12 @@ final class TabBarViewController: UITabBarController {
 
         setViewControllers(tabs.map { root, title, icon in
             root.title = title
-            root.navigationItem.largeTitleDisplayMode = .always
-            let nav = UINavigationController(rootViewController: root)
-            nav.tabBarItem = UITabBarItem(title: title, image: .init(systemName: icon), tag: 1)
-            nav.navigationBar.prefersLargeTitles = true
-            nav.navigationBar.tintColor = .label
-            return nav
+            root.navigationItem.largeTitleDisplayMode = .automatic
+            let controller = UINavigationController(rootViewController: root)
+            controller.tabBarItem = UITabBarItem(title: title, image: .init(systemName: icon), tag: 1)
+            controller.navigationBar.prefersLargeTitles = true
+            controller.navigationBar.tintColor = .label
+            return controller
         }, animated: false)
     }
 }

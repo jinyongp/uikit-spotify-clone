@@ -25,6 +25,7 @@
 		332811842A97A192005EEAB7 /* GenreSeeds.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811832A97A192005EEAB7 /* GenreSeeds.swift */; };
 		332811862A97A32A005EEAB7 /* Recommendations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811852A97A32A005EEAB7 /* Recommendations.swift */; };
 		332811882A97A3E4005EEAB7 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 332811872A97A3E4005EEAB7 /* Track.swift */; };
+		3328118C2A985D4B005EEAB7 /* GroupedCollectionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3328118B2A985D4B005EEAB7 /* GroupedCollectionView.swift */; };
 		337630C12A8CB55A003F30B2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C02A8CB55A003F30B2 /* AppDelegate.swift */; };
 		337630C32A8CB55A003F30B2 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C22A8CB55A003F30B2 /* SceneDelegate.swift */; };
 		337630C52A8CB55A003F30B2 /* TabBarViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 337630C42A8CB55A003F30B2 /* TabBarViewController.swift */; };
@@ -58,6 +59,7 @@
 		332811832A97A192005EEAB7 /* GenreSeeds.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GenreSeeds.swift; sourceTree = "<group>"; };
 		332811852A97A32A005EEAB7 /* Recommendations.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Recommendations.swift; sourceTree = "<group>"; };
 		332811872A97A3E4005EEAB7 /* Track.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
+		3328118B2A985D4B005EEAB7 /* GroupedCollectionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupedCollectionView.swift; sourceTree = "<group>"; };
 		337630BD2A8CB55A003F30B2 /* SpotifyClone.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SpotifyClone.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		337630C02A8CB55A003F30B2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		337630C22A8CB55A003F30B2 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -102,14 +104,14 @@
 			path = Logger;
 			sourceTree = "<group>";
 		};
-		332811612A971F52005EEAB7 /* Home */ = {
+		332811612A971F52005EEAB7 /* Browse */ = {
 			isa = PBXGroup;
 			children = (
 				337630E02A8CC4CF003F30B2 /* HomeViewController.swift */,
 				332811652A971F98005EEAB7 /* UserProfileViewController.swift */,
 				332811692A9745E3005EEAB7 /* SettingViewController.swift */,
 			);
-			path = Home;
+			path = Browse;
 			sourceTree = "<group>";
 		};
 		332811622A971F5F005EEAB7 /* Search */ = {
@@ -165,6 +167,21 @@
 			path = Spotify;
 			sourceTree = "<group>";
 		};
+		332811892A985CEC005EEAB7 /* Browse */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Browse;
+			sourceTree = "<group>";
+		};
+		3328118A2A985D2E005EEAB7 /* Shared */ = {
+			isa = PBXGroup;
+			children = (
+				3328118B2A985D4B005EEAB7 /* GroupedCollectionView.swift */,
+			);
+			path = Shared;
+			sourceTree = "<group>";
+		};
 		337630B42A8CB55A003F30B2 = {
 			isa = PBXGroup;
 			children = (
@@ -199,7 +216,7 @@
 			isa = PBXGroup;
 			children = (
 				332811642A971F7C005EEAB7 /* Core */,
-				332811612A971F52005EEAB7 /* Home */,
+				332811612A971F52005EEAB7 /* Browse */,
 				332811622A971F5F005EEAB7 /* Search */,
 				332811632A971F6E005EEAB7 /* Library */,
 			);
@@ -210,6 +227,8 @@
 			isa = PBXGroup;
 			children = (
 				337630CB2A8CB55B003F30B2 /* LaunchScreen.storyboard */,
+				3328118A2A985D2E005EEAB7 /* Shared */,
+				332811892A985CEC005EEAB7 /* Browse */,
 			);
 			path = Views;
 			sourceTree = "<group>";
@@ -333,6 +352,7 @@
 				332811602A96EA85005EEAB7 /* APIService.swift in Sources */,
 				332811752A9788D4005EEAB7 /* NewAlbumsRelease.swift in Sources */,
 				337630E52A8CC4FE003F30B2 /* LibraryViewController.swift in Sources */,
+				3328118C2A985D4B005EEAB7 /* GroupedCollectionView.swift in Sources */,
 				332811802A979CCB005EEAB7 /* FeaturedPlaylists.swift in Sources */,
 				337630C32A8CB55A003F30B2 /* SceneDelegate.swift in Sources */,
 				332811772A9789B4005EEAB7 /* API.swift in Sources */,
